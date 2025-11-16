@@ -33,9 +33,9 @@
     }
 
     class ProductDAO {
-        + select_all(): User[]
-        + insert(User): int
-        + update(User): void
+        + select_all(): Product[]
+        + insert(Product): int
+        + update(Product): void
         + delete(int): void
         + delete_all(): void
         + close(): void
