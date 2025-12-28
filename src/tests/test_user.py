@@ -1,5 +1,6 @@
 from daos.user_dao import UserDAO
 from models.user import User
+import time
 
 dao = UserDAO()
 
@@ -21,7 +22,6 @@ def test_user_update():
     corrected_email = 'babbage@example.com'
     user.id = assigned_id
     user.email = corrected_email
-
     dao.update(user)
 
     user_list = dao.select_all()

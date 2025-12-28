@@ -21,28 +21,22 @@ Créez votre propre dépôt à partir du dépôt gabarit (template). Vous pouvez
 
 Clonez votre dépôt sur votre ordinateur. Veillez à ne pas cloner le dépôt d'origine.
 ```bash
-git clone https://github.com/[votre_nom_utilisateur]/log430-a25-labo1
-cd log430-a25-labo1
+git clone https://github.com/[votre_nom_utilisateur]/log430-labo1
+cd log430-labo1
 ```
 
 ### 2. Créez un fichier .env
 Créez un fichier `.env` basé sur `.env.example`. Dans le fichier `.env`, utilisez les mêmes identifiants que ceux mentionnés dans `docker-compose.yml`.
 
-> ⚠️ IMPORTANT : Si vous executez l'application sur votre ordinateur, utilisez les valeurs `localhost` ou `127.0.0.1` sur les variables `MYSQL_HOST` et `MONGODB_HOST`. Si vous executez l'application sur Docker, conservez les valeurs indiqués dans le fichier `.env.example.`. Dans un conteneur Docker, vous devez **toujours** indiquer le nom (hostname) d'un service dans `docker-compose.yml` et non `localhost`.
+> ⚠️ IMPORTANT : Si vous executez l'application sur votre ordinateur, utilisez les valeurs `localhost` ou `127.0.0.1` sur les variables `MYSQL_HOST` et `MONGODB_HOST`. Si vous executez l'application sur **Docker**, conservez les valeurs indiqués dans le fichier `.env.example.`. Dans un conteneur Docker, vous devez **toujours** indiquer le nom (hostname) d'un service dans `docker-compose.yml` et non `localhost`.
 
 ### 3. Préparer l’environnement de développement
-Suivez les mêmes étapes que dans le laboratoire 00. Cependant, ne lancez pas le conteneur de manière itérative initialement. Utilisez plutôt `docker build` pour créer tous les services, y compris les bases de données que nous utiliserons dans cet exemple. Si la création est réussie, démarrez le conteneur en mode détaché avec `docker compose up -d`, puis passez au mode interactif avec `docker compose exec`.
-```bash
-docker build -t labo1-store-manager .
-docker compose up -d
-docker compose exec store_manager_app python store_manager.py
-```
+Suivez les mêmes étapes que dans le labo 0. 
 
-### 4. Lancez l’application sur votre ordinateur
-Vous pouvez aussi exécuter l'application sur votre ordinateur si vous voulez. Dans ce cas, n'oubliez pas de mettre à jour votre fichier .env (voir étape 2 du Setup).
+### 4. Lancez l’application 
+Suivez les mêmes étapes que dans le labo 0, mais utilisez `store_manager.py` au lieu de `calculator.py`.
 ```bash
-cd src
-python store_manager.py
+python src/store_manager.py
 ```
 
 ---
@@ -94,9 +88,8 @@ CREATE TABLE IF NOT EXISTS products (
 Ensuite, vous devez arrêter, reconstruire et redémarrer le conteneur Docker.
 ```bash
 docker compose down -v 
-docker build -t labo1-store-manager .
+docker compose build
 docker compose up -d
-docker compose exec store_manager_app python store_manager.py
 ```
 
 Créez un nouvel Model, View, Controller et DAO pour `Product`. Utilisez une structure MVC similaire à `User`. Ajoutez les options `Montrer la liste d'items` et `Ajouter un item` dans `product_view.py`. Vous pouvez également ajouter une option de `Supprimer un item` au menu (facultatif). Si vous voulez, créez une classe `View` séparée uniquement pour imprimer toutes les options de menu. Veuillez utiliser les diagrammes UML disponibles dans le dossier `docs/views` comme référence pour l’implémentation.
@@ -113,10 +106,16 @@ N'oubliez pas la création des tests pour valider `ProductDAO`. Le fichier de te
 Des tests unitaires sont inclus dans le dépôt. Pour les exécuter :
 
 ```bash
-python3 -m pytest
+pytest
 ```
 
-Si tous les tests passent ✅, vos implémentations sont correctes.
+Pour exécuter un fichier de test spécifique :
+
+```bash
+pytest ./src/tests/test_user.py
+```
+
+Si tous les tests `User` et `Product` passent ✅, vos implémentations sont correctes.
 
 ---
 

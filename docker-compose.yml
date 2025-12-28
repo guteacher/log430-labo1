@@ -1,7 +1,7 @@
 services:
-  store_manager_app:
+  store_manager_cli:
     build: .
-    container_name: store_manager_app
+    container_name: store_manager_cli
     volumes:
       - .:/app
     depends_on:
@@ -9,6 +9,8 @@ services:
       - mongo
     stdin_open: true
     tty: true  
+    networks:
+      - labo01-network
 
   mysql:
     image: mysql:8
@@ -17,12 +19,14 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: labo01
+      MYSQL_DATABASE: labo01_db
+      MYSQL_USER: labo01
+      MYSQL_PASSWORD: labo01
     volumes:
       - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - labo01-network
 
   mongo:
     image: mongo:6
@@ -31,10 +35,16 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: user
-      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_ROOT_USERNAME: labo01
+      MONGO_INITDB_ROOT_PASSWORD: labo01
     volumes:
       - mongo-data:/data/db
+    networks:
+      - labo01-network
+
+networks:
+  labo01-network:
+    external: true
 
 volumes:
   mongo-data:
