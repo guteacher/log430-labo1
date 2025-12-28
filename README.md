@@ -109,7 +109,7 @@ Des tests unitaires sont inclus dans le dépôt. Pour les exécuter :
 pytest
 ```
 
-Pour exécuter un fichier de test spécifique :
+Pour exécuter un fichier de test spécifique (par exemple, `test_user.py`)  :
 
 ```bash
 pytest ./src/tests/test_user.py
