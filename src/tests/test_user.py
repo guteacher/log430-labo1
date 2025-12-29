@@ -9,17 +9,17 @@ def test_user_select():
     assert len(user_list) >= 3
 
 def test_user_insert():
-    user = User(None, 'Margaret Hamilton', 'hamilton@example.com')
+    user = User(None, 'Joanne Test', 'joannetest@example.com')
     dao.insert(user)
     user_list = dao.select_all()
     emails = [u.email for u in user_list]
     assert user.email in emails
 
 def test_user_update():
-    user = User(None, 'Charles Babbage', 'babage@example.com')
+    user = User(None, 'Joe Test', 'testttt@example.com')
     assigned_id = dao.insert(user)
 
-    corrected_email = 'babbage@example.com'
+    corrected_email = 'joetest@example.com'
     user.id = assigned_id
     user.email = corrected_email
     dao.update(user)
@@ -28,8 +28,11 @@ def test_user_update():
     emails = [u.email for u in user_list]
     assert corrected_email in emails
 
+    # cleanup
+    dao.delete(assigned_id)
+
 def test_user_delete():
-    user = User(None, 'Douglas Engelbart', 'engelbart@example.com')
+    user = User(None, 'Joe Test', 'joetest@example.com')
     assigned_id = dao.insert(user)
     dao.delete(assigned_id)
 
