@@ -48,7 +48,7 @@ class UserDAO:
         """ Delete user from MySQL with given user ID """
         pass
 
-    def delete_all(self): #optional
+    def delete_all(self): # extra
         """ Empty users table in MySQL """
         pass
         
