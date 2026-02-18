@@ -41,7 +41,7 @@ class ProductDAO:
         """ Delete product from MySQL with given product ID """
         pass
 
-    def delete_all(self): #optional
+    def delete_all(self): # extra
         """ Empty products table in MySQL """
         pass
         
